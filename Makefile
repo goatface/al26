@@ -64,13 +64,13 @@ $(ARCHIVE):
 	@ranlib $(ARCHIVE)
 
 $(TGT): $(FOBJS) $(COBJS)
-	@printf "LD $(TGT)\n\tcopy of any errors recorded in log/linker.log\n"
-	$(LD) -O  $(COBJS) $(FOBJS) $(ARCHIVE) -o $@ $(LIBS) 2>&1 | tee log/linker.log 
+	@printf "LD $(TGT)\n\tcopy of any errors recorded in linker.log\n"
+	$(LD) -O  $(COBJS) $(FOBJS) $(ARCHIVE) -o $@ $(LIBS) 2>&1 | tee linker.log 
 	@printf "\nCompile successful!\nbinary: $(shell pwd)/$(TGT)\n\n"
 
 $(DOCS): $(TGT) 
-	@printf "Generating documentation...\n\tall output and errors directed to log/doxygen.log\n"
-	@$(DOCCMD) $(DOCCFG)  &> log/doxygen.log 
+	@printf "Generating documentation...\n\tall output and errors directed to doxygen.log\n"
+	@$(DOCCMD) $(DOCCFG)  &> doxygen.log 
 
 force_look:
 	@true
