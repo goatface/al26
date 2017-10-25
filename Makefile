@@ -41,7 +41,10 @@ ROOTLIBS=$(shell root-config --libs)
 #KVLIBS=-L$(KVROOT)/lib -lKVMultiDet -lrange
 # make sure to run sudo ldconfig
 #RANGELIBS=-L/usr/local/lib -lrange
-LIBS=-lXpm -lX11 -lm $(ROOTLIBS) $(KVLIBS) $(RANGELIBS)
+
+#-lXpm & -lX11 doesn't work in MacOS
+LIBS=-lm $(ROOTLIBS) $(KVLIBS) $(RANGELIBS)
+#LIBS=-lXpm -lX11 -lm $(ROOTLIBS) $(KVLIBS) $(RANGELIBS)
 #LIBS=-lXpm -lX11 -lm $(ROOTLIBS) $(KVLIBS) $(RANGELIBS) -lstdc++
 INCLUDE=$(addprefix -I,$(KVROOT)/include)
 COBJS=dictCal.o dictAnaly.o run.o
