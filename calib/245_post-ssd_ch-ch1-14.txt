@@ -1,0 +1,31 @@
+#F2 SSD placeholder
+0.0		1.0
+# halfwidth 20, rebin 4; .x ffpeaks.C(3,"245_post","ssd_ch",1,14,0,100,1000)
+# ssd_ch1 245_post.root CRIB alpha source 3 Chisquare: 1.3011282e-05
+41.798963	0.0049417217
+# ssd_ch2 245_post.root CRIB alpha source 3 Chisquare: 1.260414e-05
+28.338601	0.0053622528
+# ssd_ch3 245_post.root
+0.0		1.0
+# ssd_ch4 245_post.root CRIB alpha source 3 Chisquare: 1.9060962e-05
+61.363305	0.0052463564
+# ssd_ch5 245_post.root CRIB alpha source 2 Chisquare: 2.2368143e-05
+45.479204	0.0055221652
+# ssd_ch6 245_post.root CRIB alpha source 2 Chisquare: 4.9702426e-07
+23.206716	0.0053970495
+# ssd_ch7 245_post.root CRIB alpha source 2 Chisquare: 8.811585e-07
+11.104844	0.0055059551
+# ssd_ch8 245_post.root CRIB alpha source 3 Chisquare: 4.6889271e-06
+8.4609756	0.0017708874
+# ssd_ch9 245_post.root CRIB alpha source 3 Chisquare: 2.5136591e-06
+-29.79142	0.0015665275
+# ssd_ch10 245_post.root
+0.0		1.0
+# ssd_ch11 245_post.root CRIB alpha source 3 Chisquare: 2.5847617e-05
+80.010218	0.0016853919
+# ssd_ch12 245_post.root CRIB alpha source 2 Chisquare: 3.6590867e-06
+8.4622604	0.0017716239
+# ssd_ch13 245_post.root CRIB alpha source 2 Chisquare: 1.920725e-07
+-43.119878	0.0017005079
+# ssd_ch14 245_post.root CRIB alpha source 2 Chisquare: 1.0271315e-05
+-8.3237921	0.0016543957

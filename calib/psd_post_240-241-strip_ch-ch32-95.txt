@@ -1,0 +1,163 @@
+# PSD1 not used
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+0.0		0.0
+# rebin 10, halfwidth 20; .x ffpeaks.C(3,"psd_post_240-241","strip_ch",32,95,0,50,400)
+# strip_ch32 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.357131e-05
+-28.014682	0.0016497316
+# strip_ch33 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.0597202e-05
+-15.917191	0.001641176
+# strip_ch34 psd_post_240-241.root CRIB alpha source 3 Chisquare: 6.2942516e-06
+0.45449538	0.0017009862
+# strip_ch35 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.5165615e-05
+-16.965995	0.0016430777
+# strip_ch36 psd_post_240-241.root CRIB alpha source 3 Chisquare: 0.00042936697
+-19.568833	0.0016181586
+# strip_ch37 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.3297723e-05
+-8.5300245	0.0016253962
+# strip_ch38 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.5328076e-06
+-7.2672395	0.0016368427
+# strip_ch39 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.1352575e-05
+-10.542627	0.0016243785
+# strip_ch40 psd_post_240-241.root CRIB alpha source 3 Chisquare: 8.7081448e-07
+-4.2813757	0.001657774
+# strip_ch41 psd_post_240-241.root CRIB alpha source 3 Chisquare: 6.5190815e-05
+-17.116892	0.0016393804
+# strip_ch42 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.0485109e-07
+-39.112697	0.0016356199
+# strip_ch43 psd_post_240-241.root
+0.0		0.0
+# strip_ch44 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.0323275e-07
+-6.9333264	0.0016657738
+# strip_ch45 psd_post_240-241.root CRIB alpha source 3 Chisquare: 5.4377718e-05
+0.86207057	0.0016208275
+# strip_ch46 psd_post_240-241.root CRIB alpha source 3 Chisquare: 3.6821874e-05
+-5.743448	0.0016492699
+# strip_ch47 psd_post_240-241.root
+0.0		0.0
+# strip_ch48 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.2489277e-05
+-9.3510442	0.0016112857
+# strip_ch49 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.2332758e-05
+3.5918087	0.0016210636
+# strip_ch50 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.8167001e-05
+-7.7631853	0.0016392699
+# strip_ch51 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.3627398e-05
+16.290187	0.0016334673
+# strip_ch52 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.9178955e-05
+-3.4486014	0.0016480732
+# strip_ch53 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.6687961e-05
+-4.0824321	0.0016142034
+# strip_ch54 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.2980204e-05
+-9.5562169	0.0016668101
+# strip_ch55 psd_post_240-241.root CRIB alpha source 3 Chisquare: 6.8892352e-07
+-1.0016113	0.0016524389
+# strip_ch56 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.9101635e-05
+-5.4494895	0.0016410061
+# strip_ch57 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.4716059e-06
+-16.298846	0.0016352105
+# strip_ch58 psd_post_240-241.root has nothing...
+# strip_ch58 30.root CRIB alpha source 3 Chisquare: 4.568557e-05
+-10.818359      0.00161296
+# strip_ch59 psd_post_240-241.root CRIB alpha source 3 Chisquare: 3.9026365e-06
+-8.5103065	0.0016793718
+# strip_ch60 psd_post_240-241.root CRIB alpha source 3 Chisquare: 5.4296206e-05
+-11.338757	0.0016172471
+# strip_ch61 psd_post_240-241.root CRIB alpha source 3 Chisquare: 6.9624806e-05
+-8.5215308	0.0016422512
+# strip_ch62 psd_post_240-241.root CRIB alpha source 3 Chisquare: 8.5847045e-06
+-2.3589598	0.0016693354
+# strip_ch63 psd_post_240-241.root CRIB alpha source 3 Chisquare: 7.0356792e-07
+10.790715	0.0016285018
+# strip_ch64 psd_post_240-241.root CRIB alpha source 3 Chisquare: 7.7849342e-06
+54.281167	0.0016835527
+# strip_ch65 psd_post_240-241.root CRIB alpha source 3 Chisquare: 6.7317965e-06
+50.531196	0.0016076701
+# strip_ch66 psd_post_240-241.root CRIB alpha source 3 Chisquare: 9.317225e-06
+40.627507	0.0017194157
+# strip_ch67 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.2775e-05
+57.074097	0.0016994528
+# strip_ch68 psd_post_240-241.root CRIB alpha source 3 Chisquare: 7.4128192e-06
+55.106356	0.0016580393
+# strip_ch69 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.3511298e-05
+57.081553	0.0016530536
+# strip_ch70 psd_post_240-241.root CRIB alpha source 3 Chisquare: 3.6366289e-06
+54.118563	0.0016404687
+# strip_ch71 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.1180827e-05
+60.023897	0.0017009254
+# strip_ch72 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.8963518e-05
+24.214394	0.0016458113
+# strip_ch73 psd_post_240-241.root CRIB alpha source 3 Chisquare: 5.7313023e-06
+59.682527	0.0016503559
+# strip_ch74 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.3568126e-05
+48.059526	0.0016508479
+# strip_ch75 psd_post_240-241.root CRIB alpha source 3 Chisquare: 3.8468248e-06
+55.726159	0.0016685345
+# strip_ch76 psd_post_240-241.root CRIB alpha source 3 Chisquare: 9.1986106e-06
+42.447153	0.0016751098
+# strip_ch77 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.6044704e-05
+50.854028	0.0016256144
+# strip_ch78 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.3501802e-06
+60.917889	0.0016804471
+# strip_ch79 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.0761538e-05
+67.380568	0.0017019636
+# strip_ch80 psd_post_240-241.root CRIB alpha source 3 Chisquare: 4.4331251e-07
+49.680631	0.0016846172
+# strip_ch81 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.2101647e-06
+47.772723	0.001713458
+# strip_ch82 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.6125114e-06
+62.895189	0.0017117416
+# strip_ch83 psd_post_240-241.root CRIB alpha source 3 Chisquare: 1.8893719e-06
+52.718811	0.0016687984
+# strip_ch84 psd_post_240-241.root CRIB alpha source 3 Chisquare: 6.8560619e-06
+70.504376	0.0017789483
+# strip_ch85 psd_post_240-241.root CRIB alpha source 3 Chisquare: 3.1651186e-08
+59.991386	0.0016452192
+# strip_ch86 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.2411103e-06
+50.697723	0.0016288797
+# strip_ch87 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.3882505e-07
+60.86297	0.0016392252
+# strip_ch88 psd_post_240-241.root CRIB alpha source 3 Chisquare: 3.5411069e-06
+33.685484	0.0016671292
+# strip_ch89 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.7384598e-06
+44.820563	0.0016330644
+# strip_ch90 psd_post_240-241.root CRIB alpha source 3 Chisquare: 5.5886655e-07
+40.707239	0.0017357034
+# strip_ch91 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.1986864e-07
+52.875957	0.0016512103
+# strip_ch92 psd_post_240-241.root CRIB alpha source 3 Chisquare: 2.5258151e-07
+54.192263	0.0016712748
+# strip_ch93 psd_post_240-241.root CRIB alpha source 3 Chisquare: 4.5135862e-10
+49.569711	0.0016587972
+# strip_ch94 psd_post_240-241.root CRIB alpha source 3 Chisquare: 3.7045925e-07
+46.686829	0.0016813043
+# strip_ch95 psd_post_240-241.root CRIB alpha source 3 Chisquare: 8.1055422e-06
+38.285402	0.0016718946
