@@ -1,0 +1,127 @@
+#!/bin/zsh
+
+declare -i x_position=`expr \`tput lines\` / 10`
+declare -i y_position=`expr \`tput  cols\` / 3`
+declare -i line_limit=`expr \`tput  line\` \* 9 / 10`
+
+_Check_(){
+if [ ! -f ./bin/list/hist.list ] && [ ! -f ./bin/list/set.list ] ; then
+  echo "move to crabat directory."
+  exit 1
+fi
+}
+
+_Logo_(){
+  tput cup  `expr \`tput lines\` / 10 \* 7` `expr \`tput cols\` / 10 \* 7`
+  imgcat ./bin/logos/logo.jpg
+}
+
+_Position_(){
+  tput cup  `expr ${x_position} + $1` `expr ${y_position} + $2` 
+}
+
+_Show_(){
+
+  if [ $y_position -le 40 ]
+  then
+    line_hist=11
+    col_hist=0
+    line_det=0
+    col_det=0
+  else
+    line_hist=0
+    col_hist=-40
+    line_det=0
+    col_det=50
+  fi
+
+  hist.list -l > hist.status
+  det.list > det.status
+
+  cat det.status | while read line
+  do
+    line_det=$((line_det + 1 ))
+    _Position_ $line_det $col_det
+    printf "$line"
+  done
+
+  cat hist.status | while read line
+  do
+    line_hist=$(( line_hist + 1 ))
+    if [ $line_hist -gt `expr $line_limit - 4 ` ]
+    then
+      if [ $line_hist -gt `expr $line_limit \* 2 - 11 ` ]
+      then
+        if [ $line_hist -gt `expr $line_limit \* 3 - 19 ` ]
+        then
+          _Position_ `expr $line_hist - $line_limit \* 2 + 14 ` `expr $col_hist + 50  `
+          printf "\e[31;1mcannot show more histograms\e[m\n"
+          return 1
+        else
+        _Position_ `expr $line_hist - $line_limit \* 2 + 14 ` `expr $col_hist + 50  `
+        fi
+      else
+      _Position_ `expr $line_hist - $line_limit + 7 ` `expr $col_hist + 25  `
+      fi
+    else
+      _Position_ $line_hist $col_hist
+    fi
+    printf "$line"
+  done
+
+}
+
+_Init_(){
+  tput vi
+  stty raw -echo
+  clear
+  IFS_BACKUP=$IFS
+  IFS=$'\n'
+  touch hist.status
+  touch det.status
+}
+
+_End_(){
+
+  IFS=$IFS_BACKUP
+  clear
+  rm det.status hist.status
+
+  stty -raw echo
+  tput vs
+
+}
+
+
+_Crabat_Status_(){
+
+  if [ $# -eq 1 -a "$1" = "-l" ]; then
+    _Logo_
+  fi
+
+  tput cup  `expr \`tput lines\` / 10 - 1 ` `expr \`tput cols\` / 10 `
+  last_hist=`stat -f "%Sm" ./bin/list/hist.list`
+  last_det=`stat -f "%Sm" ./bin/list/SetDetector.list`
+  _Show_
+  while [ -z $ans ]
+  do
+
+    tput cup  `expr \`tput lines\` / 10 - 1 ` `expr \`tput cols\` / 10 `
+    printf "\e[31;1m %s \e[m" `date`
+    read -t 1 -k 1 ans
+    last_hist_tmp=`stat -f "%Sm" ./bin/list/hist.list`
+    last_det_tmp=`stat -f "%Sm" ./bin/list/SetDetector.list`
+    if [ $last_hist != $last_hist_tmp ] || [ $last_det != $last_det_tmp ]
+    then
+      _Show_ $last_hist_tmp $last_det_tmp
+      last_hist=$last_hist_tmp
+      last_det=$last_det_tmp
+    fi
+  done
+
+}
+
+_Check_
+_Init_
+_Crabat_Status_ $@
+_End_

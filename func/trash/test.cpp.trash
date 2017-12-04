@@ -1,0 +1,18 @@
+//################################
+//#                              #
+//#    Definition of Function    #
+//#           Created            #
+//#              on              #
+//#          2017.11.12          #
+//#                              #
+//################################
+
+
+#include "Functions.h"
+
+Double_t test(Int_t test){
+
+
+
+
+}

@@ -1,0 +1,24 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.18          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::Psd1_xy(Int_t HistID){
+
+
+  det.PsdFlag();
+  if(det.fCr[0])
+    if(det.fPsdIsHit[1])
+      Hist2D[HistID]->Fill(det.fPsdX[1],det.fPsdY[1]);
+
+
+
+
+}

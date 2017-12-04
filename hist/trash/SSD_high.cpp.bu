@@ -1,0 +1,19 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.20          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::SSD_high(Int_t HistID){
+
+
+  if(det.fCr[0])
+    Hist1D[HistID]->Fill(Ssd_calib->SSDEdep(det.fSsdE[1],1));
+
+}

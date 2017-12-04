@@ -1,0 +1,4 @@
+# name ; ID : Dimension | definition of histogram
+ Tel1_Energy : 14 : 1 |  Tel1_Energy : Tel1_Energy : 1000 : 0 : 30  |  Energy [keV] : counts
+ Tel2_Energy : 0 : 1 |  Tel2_Energy : Tel2_Energy : 1000 : 0 : 30 |  Energy [MeV] : counts
+ Tel1_dEvsE : 1 : 2 |  Tel1_dEvsE : Tel1_dEvsE : 1000 : 0 : 8 : 1000 : 0 : 30  |  Energy depodit in thick layer [MeV] : Residual Energy [MeV]

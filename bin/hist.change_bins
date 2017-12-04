@@ -1,0 +1,131 @@
+#!/bin/sh
+
+if [ ! $# -eq 1 ] 
+then
+  echo "Invalid argument"
+  exit 1
+fi
+
+usage(){
+    cat <<EOF
+$(basename ${0}) is a tool for ROOT Analysis.
+    Usage:
+        crabat [run number]
+    Option:
+        --version, -v   print $(basename ${0}) version
+        --help, -h      print this
+EOF
+}
+
+
+version(){
+    echo "Crabat version 0.0.1"
+}
+
+_Check_ () {
+
+  if [ ! -d ./bin/list ] ; then
+    echo "move to crabat directory."
+    exit 1
+  fi
+
+}
+
+
+Question(){
+  /bin/echo -n "Do you want to change bins? (y/n) "
+  read ans
+  if [ $ans = "y" ];then
+    echo "Put the parameters"
+    echo ""
+  elif [ $ans = "n" ];then
+    echo "see you"
+    exit 1
+  else
+    echo "choose yes or no \a"
+    Question
+  fi
+}
+
+Duplicate(){
+  if [ `cat $1 | grep $2 | wc -l | awk '{print $1}' ` -gt 1 ]
+  then
+    echo "Histogram's name duplicate!"
+    echo "Change $1 and remake it" 
+    exit 1
+  fi
+}
+
+chbin(){
+  list_path="./bin/list/hist.list"
+  set_path="./bin/list/set.list"
+  
+  histname=$1 
+  histname_raw="{o}$1{o}" 
+
+  Duplicate $list_path $histname_raw
+
+  dim=`cat $list_path | grep $histname_raw |  awk '{print $2}' | sed "s/TH//" | sed "s/D//"`
+  id_list=`cat $list_path | grep $histname_raw |  awk '{print $1}'`
+  name_id="$histname : $id_list"
+  IFS_BACKUP=$IFS
+  IFS=$'\n'
+  SetUp=`cat $list_path | grep $histname_raw | awk -F'|' '{print $2}'`
+  IFS=$IFS_BACKUP
+  echo "Previous set up :" 
+  echo "    $SetUp"
+  Question
+
+  if [ $dim -eq 1 ];then
+    /bin/echo -n "Input the number of bin  : "
+    read bin
+    /bin/echo -n "Input minimum value : "
+    read min
+    /bin/echo -n "Input maximum value : "
+    read max
+    newSetUp=" $histname : $histname : $bin : $min : $max"
+    sed -i "" "/$histname_raw/s/$SetUp/$newSetUp/" $list_path
+    sed -i "" "/$name_id/s/$SetUp/$newSetUp/" $set_path
+  elif [ $dim -eq 2 ];then
+    /bin/echo -n "Input the number of bin  : "
+    read bin
+    /bin/echo -n "Input minimum value : "
+    read min
+    /bin/echo -n "Input maximum value : "
+    read max
+    /bin/echo -n "Input the number of bin  : "
+    read bins
+    /bin/echo -n "Input minimum value : "
+    read mins
+    /bin/echo -n "Input maximum value : "
+    read maxes
+    newSetUp=" $histname : $histname : $bin : $min : $max : $bins : $mins : $maxes"
+    sed -i "" "/$histname_raw/s/$SetUp/$newSetUp/" $list_path
+    sed -i "" "/$name_id/s/$SetUp/$newSetUp/" $set_path
+  elif [ $dim -eq 3 ];then
+    /bin/echo -n "Input the number of bin  : "
+    read bin1
+    /bin/echo -n "Input minimum value : "
+    read min1
+    /bin/echo -n "Input maximum value : "
+    read max1
+    /bin/echo -n "Input the number of bin  : "
+    read bin2
+    /bin/echo -n "Input minimum value : "
+    read min2
+    /bin/echo -n "Input maximum value : "
+    read max2
+    /bin/echo -n "Input the number of bin  : "
+    read bin3
+    /bin/echo -n "Input minimum value : "
+    read min3
+    /bin/echo -n "Input maximum value : "
+    read max3
+    newSetUp=" $histname : $histname : $bin1 : $min1 : $max1 : $bin2 : $min2 : $max2 : $bin3 : $min3 : $max3"
+    sed -i "" "/$histname_raw/s/$SetUp/$newSetUp/" $list_path
+    sed -i "" "/$name_id/s/$SetUp/$newSetUp/" $set_path
+  fi
+}
+
+_Check_ $1
+chbin $1

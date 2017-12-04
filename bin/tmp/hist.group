@@ -1,0 +1,164 @@
+#!/bin/sh
+
+_Check_ () {
+
+if [ ! -f ./bin/list/hist.list ] && [ ! -f ./bin/list/set.list ] ; then
+  echo "move to crabat directory."
+  exit 1
+fi
+
+}
+
+_Question_ () {
+
+/bin/echo -n "do you wanna create a histogram? (y/n) "
+read ANS
+if [ $ANS = "y" ];then
+  _Createhist_
+elif [ $ANS = "n" ];then
+  echo "see you"
+else
+  echo "choose yes or no \a"
+  _Question_
+fi
+
+}
+
+_Createhist_ () {
+
+  # get value from interpriter
+  /bin/echo -n "Input name : "
+  read name
+  /bin/echo -n "Input its dimension (1..3) : "
+  read dim
+  while [ ! $dim -eq 1 ] && [ ! $dim -eq 2 ] && [ ! $dim -eq 3 ] 
+  do
+    /bin/echo -n "Invalid dimension (1..3) : "
+    read dim
+  done
+
+  MaxID=`head -n 1 ./bin/list/hist.list | awk '{print $2}'`
+  HistID=$MaxID
+
+  n_src=`grep -n ADDHIST_SRC${dim} src/TCrabatHistManager.cpp | awk -F: '{print $1}'`
+  n_inc=`grep -n ADDHIST_INC include/TCrabatHistManager.h | awk -F: '{print $1}'`
+  n_src=`expr ${n_src} - 1 `
+  n_inc=`expr ${n_inc} - 1 `
+
+  if [ $dim -eq 1 ] ; then
+    /bin/echo -n "Input the number of bin  : "
+    read bin
+    /bin/echo -n "Input minimum value : "
+    read min
+    /bin/echo -n "Input maximum value : "
+    read max
+    echo ""
+    /bin/echo -n "Input the name of abscissa : "
+      read abscissa
+    /bin/echo -n "Input the name of ordinate : "
+      read ordinate
+    echo "${MaxID} TH1D {o}${name}{o} OFF created on $(date "+%Y/%m/%d %H:%M:%S") | $name : $name : $bin : $min : $max | $abscissa : $ordinate">> ./bin/list/hist.list
+
+  elif [ $dim -eq 2 ] ; then
+    /bin/echo -n "Input the number of bin  : "
+    read bin1
+    /bin/echo -n "Input minimum value : "
+    read min1
+    /bin/echo -n "Input maximum value : "
+    read max1
+    /bin/echo -n "Input the number of bin  : "
+    read bin2
+    /bin/echo -n "Input minimum value : "
+    read min2
+    /bin/echo -n "Input maximum value : "
+    read max2
+    echo ""
+    /bin/echo -n "Input the name of abscissa : "
+      read abscissa
+    /bin/echo -n "Input the name of ordinate : "
+      read ordinate
+    echo "${MaxID} TH2D {o}${name}{o} OFF created on $(date "+%Y/%m/%d %H:%M:%S") | $name : $name : $bin1 : $min1 : $max1 : $bin2 : $min2 : $max2 | $abscissa : $ordinate">> ./bin/list/hist.list
+
+  elif [ $dim -eq 3 ] ; then
+    /bin/echo -n "Input the number of bin  : "
+    read bin1
+    /bin/echo -n "Input minimum value : "
+    read min1
+    /bin/echo -n "Input maximum value : "
+    read max1
+    /bin/echo -n "Input the number of bin  : "
+    read bin2
+    /bin/echo -n "Input minimum value : "
+    read min2
+    /bin/echo -n "Input maximum value : "
+    read max2
+    /bin/echo -n "Input the number of bin  : "
+    read bin3
+    /bin/echo -n "Input minimum value : "
+    read min3
+    /bin/echo -n "Input maximum value : "
+    read max3
+    echo ""
+    /bin/echo -n "Input the name of X axis : "
+      read xaxis
+    /bin/echo -n "Input the name of Y axis : "
+      read yaxis
+    /bin/echo -n "Input the name of Z axis : "
+      read zaxis
+    echo "${MaxID} TH3D {o}${name}{o} OFF created on $(date "+%Y/%m/%d %H:%M:%S") | $name : $name : $bin1 : $min1 : $max1 : $bin2 : $min2 : $max2 : $bin3 : $min3 : $max3 | $xaxis : $yaxis : $zaxis">> ./bin/list/hist.list
+  fi
+
+
+  ## create new hist in hist/
+  cp ./bin/templete/templete.cpp ./hist/${name}.cpp
+  sed -i "" "s/_DATE_/$(date "+%Y\/%m\/%d %H:%M:%S")/g" ./hist/${name}.cpp
+  sed -i "" "s/_HIST_NAME_/${name}/g" ./hist/${name}.cpp
+  sed -i "" "s/_DIM_/${dim}/g" ./hist/${name}.cpp 
+  if [ $dim -eq 1 ]
+  then
+    arg="0.0"
+    sed -i "" "s/_ARG_/${arg}/g" ./hist/${name}.cpp 
+  elif [ $dim -eq 2 ]
+  then
+    arg="0.0,0.0"
+    sed -i "" "s/_ARG_/${arg}/g" ./hist/${name}.cpp 
+  elif [ $dim -eq 3 ]
+  then
+    arg="0.0,0.0,0.0"
+    sed -i "" "s/_ARG_/${arg}/g" ./hist/${name}.cpp 
+  fi
+
+
+  ## insert imformation into Histograms.cpp
+  touch tmp_src
+  head -n ${n_src} src/TCrabatHistManager.cpp > tmp_src
+  cp bin/templete/templete_src .
+  sed -i "" "s/_HIST_NAME_/${name}/g" templete_src
+  sed -i "" "s/_HIST_ID_/${HistID}/g" templete_src
+  cat templete_src >> tmp_src
+  diff tmp_src src/TCrabatHistManager.cpp | sed "1,5d" | sed "s/^> //" >> tmp_src
+  cat tmp_src > src/TCrabatHistManager.cpp
+  rm tmp_src templete_src
+
+
+  ## insert imformation into Histograms.h
+  touch tmp_inc
+  head -n ${n_inc} include/TCrabatHistManager.h > tmp_inc
+  cp bin/templete/templete_inc .
+  sed -i "" "s/_HIST_NAME_/${name}/g" templete_inc
+  sed -i "" "s/_DIM_/${dim}/g" templete_inc
+  cat templete_inc >> tmp_inc
+  diff tmp_inc include/TCrabatHistManager.h | sed "1,3d" | sed "s/^> //" >> tmp_inc
+  cat tmp_inc > include/TCrabatHistManager.h
+  rm tmp_inc templete_inc
+
+  echo "Histogram's name = ${name}"
+  echo "Histogram's id  = ${HistID}"
+  echo "Histogram has been created"
+
+  sed -i "" "1 s/${MaxID}/`expr ${MaxID} + 1 `/g" ./bin/list/hist.list
+
+}
+
+_Check_
+_Question_

@@ -1,0 +1,19 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.18          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::NaI1calib(Int_t HistID){
+
+
+
+
+  Hist1D[HistID]->Fill();
+}

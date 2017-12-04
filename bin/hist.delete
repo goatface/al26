@@ -1,0 +1,63 @@
+#!/bin/sh
+
+Check(){
+if [ ! -f ./bin/list/hist.list ] && [ ! -f ./bin/list/set.list ] ; then
+  echo "move to crabat directory."
+  exit 1
+fi
+}
+
+DeleteHist(){
+
+  list_path="./bin/list/hist.list"
+  inc_file="./include/TCrabatHistManager.h"
+  src_file="./src/TCrabatHistManager.cpp"
+  histname_raw="{o}$1{o}"
+
+  hit_pattern=`grep $histname_raw $list_path | wc -l | awk '{print $1}'`
+  if [ $hit_pattern -ge 2 ];then
+    echo " Several words were hit"
+    return
+  elif [ $hit_pattern -eq 1 ] 
+  then
+
+    # release from set.list 
+    hist.release $1
+    # delete imformation from list
+    sed -i "" "/$histname_raw/d" $list_path
+    echo "delete $1 from $list_path"
+    # delete imformation from TCrabatHistManager.h
+    sed -i "" "/$histname_raw/d" $inc_file
+    echo "delete $1 from $inc_file"
+    # delete imformation from TCrabatHistManager.cpp
+    sed -i "" "/$histname_raw/d" $src_file
+    echo "delete $1 from $src_file"
+  fi
+
+  # Delete cpp file from ./hist/ directory
+  if [ -f ./hist/$1.cpp ]; then
+    mv ./hist/$1.cpp ./hist/trash/$1.cpp.trash
+  else
+    echo "./hist/$1.cpp doesn't exist but discard it anyway"
+  fi
+
+  echo "Histogram $1 has been deleted"
+
+}
+
+Answer(){
+
+  /bin/echo -n "Delete $1? (y/n)"
+  read ans
+  if [ $ans = "y" ];then
+    DeleteHist $1
+  elif [ $ans = "n" ];then
+    echo "Okay, see you"
+  else
+    echo "Choose yes or no \a"
+    Answer $1
+  fi
+}
+
+Check
+Answer $1

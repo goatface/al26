@@ -1,0 +1,17 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.17          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::NaI3(Int_t HistID){
+
+    if(det.fCr[0])
+        Hist1D[HistID]->Fill(det.fNaiE[2]);
+}

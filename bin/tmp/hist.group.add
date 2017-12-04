@@ -1,0 +1,40 @@
+#!/bin/sh
+
+_Check_ () {
+
+if [ ! -f ./bin/list/hist.list ]  && [ ! -f ./bin/list/histgroup.list ] && [ ! -f ./bin/list/set.list ] ; then
+  echo "move to crabat directory."
+  exit 1
+fi
+
+}
+
+_Question_ () {
+
+/bin/echo -n "do you wanna create new group ? (y/n) "
+read ANS
+if [ $ANS = "y" ];then
+  _CreateHistGroup_
+elif [ $ANS = "n" ];then
+  echo "see you"
+else
+  echo "choose yes or no \a"
+  _Question_
+fi
+
+}
+
+_CreateHistGroup_ () {
+
+  /bin/echo -n "Input new group's name : "
+  read NAME
+  cat << EOF 
+- Group Name : {@}$NAME{@}
+-              HISTOGRAM GROUP
+EOF
+
+
+}
+
+_Check_
+_Question_

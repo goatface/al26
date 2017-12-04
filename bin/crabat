@@ -1,0 +1,172 @@
+#!/bin/sh
+
+
+crabat_path="/local/Analyze"
+declare -i x_position=`expr \`tput lines\` / 3`
+declare -i y_position=`expr \`tput  cols\` / 3`
+
+position(){
+
+    tput cup  `expr ${x_position} + $1` `expr ${y_position} + $2` 
+
+}
+
+logo(){
+  tput civis
+  stty raw -echo
+  clear
+
+  IFS_BACKUP=$IFS
+  IFS=$'\n'
+  i=-10
+  cat ./bin/logos/logo | while read line
+  do
+    position $i -15
+    printf "\e[37:1m%s\e[m\n" $line
+    i=$(( i + 1 ))
+  done
+  IFS=$IFS_BACKUP
+
+  sleep 1
+  stty -raw echo
+  tput cnorm
+  clear
+}
+
+usage(){
+printf "\e[34:2m$(basename ${0}) is a tool for ROOT Analysis.\e[m\n\n"
+
+printf "   \e[33:1mUsage:\e[m\n"
+printf "    \e[37:2m    crabat [option(s)] [run number]\n\e[m"
+printf "   \e[33:1mOptions:\e[m\n"
+printf "    \e[37:2m    --version, -v   print $(basename ${0}) version\n"
+printf "        --help, -h      print this\n"
+printf "        -q              use $(basename ${0}) without using macros\n"
+printf "        -l              use $(basename ${0}) without logos\n\e[m"
+printf "        -r              use $(basename ${0}) with raw mode\n\e[m"
+printf "   \e[33:1mCommands:\e[m\n"
+commands=($(ls -F bin | grep -v / | sed "s/*//" ))
+printf "\e[31:2m        main:\e[m\n\e[37:2m"
+for cmd in ${commands[@]}
+do
+  if [ ! -z `echo $cmd | sed "/^det/g"` ] && [ ! -z `echo $cmd | sed "/^hist/g"` ] 
+  then
+printf "          $cmd\n"
+  fi
+done
+printf "\e[31:2m        histograms:\e[m\n\e[37:2m"
+for cmd in ${commands[@]}
+do
+  if [ -z `echo $cmd | sed "/^hist/g"` ]
+  then
+printf "          $cmd\n"
+  fi
+done
+printf "\e[31:2m        detecotors:\e[m\n\e[37:2m"
+for cmd in ${commands[@]}
+do
+  if [ -z `echo $cmd | sed "/^det/g"` ]
+  then
+printf "          $cmd\n"
+  fi
+done
+printf "\n\n\e[m"
+
+}
+
+
+version(){
+    echo "crabat version 0.0.1"
+}
+
+ValidInt(){
+
+  expr $1 + 1 >/dev/null 2>&1
+  if [ $? -ge 2 ]; then
+    echo "Invalid argument"
+    exit 1;
+  fi
+
+}
+
+if [ $# -eq 1 ]; then
+
+  expr $1 + 1 >/dev/null 2>&1
+
+  if [ $? -lt 2 ]; then
+
+    if [ ! -e crabat ]; then
+      echo "Incorrect directory" 
+      exit 1
+    fi
+
+    logo &
+    ./crabat $1 > log/log
+    sleep 2
+    printf "\e[33:1m"
+    cat log/log
+    printf "\e[m\n" 
+
+    if [ `grep "unknown binary" log/log | wc -c` -eq 0 ] && [ `grep "segmentation" log/log | wc -c` -eq 0 ] 
+    then
+       root -l rootfiles/$1.root conf.C run.C
+    fi
+
+  else
+    case ${1} in
+      help|--help|-h)
+          usage
+      ;;
+      version|--version|-v)
+          version
+      ;;
+
+      *)
+      echo "Invalid argument"
+      echo "add --help or -h and take a look on usage"
+      exit 1
+      ;;
+    esac
+  fi
+
+elif [ $# -eq 2 ]; then
+
+  ValidInt $2
+
+  if [ ! -e crabat ]; then
+    echo "Incorrect directory" 
+    exit 1
+  fi
+
+  case ${1} in
+    -r)
+      ./crabat $2 
+    ;;
+    -l)
+      ./crabat $2 
+      root -l rootfiles/$2.root conf.C run.C
+    ;;
+    -q)
+       logo &
+      ./crabat $2 > log/log
+      sleep 2
+      printf "\e[33:1m"
+      cat log/log
+      printf "\e[m\n" 
+    ;;
+
+    *)
+    echo "Invalid argument"
+    echo "add --help or -h and take a look on usage"
+    exit 1
+    ;;
+  esac
+    
+else
+
+  echo "Invalid argument"
+  echo "add --help or -h and take a look on usage"
+  exit 1
+
+fi
+

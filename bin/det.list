@@ -1,0 +1,28 @@
+#!/bin/sh
+if [ ! -d ./bin/list ] ; then
+  echo "move to crabat directory."
+  exit 1
+fi
+
+Detector=($(cat ./bin/list/SetDetector.list | awk '{print $1}'))
+Status=($(cat ./bin/list/SetDetector.list | awk '{print $3}'))
+
+if [ ${#Detector[@]} -ge 1 ]
+then
+  echo ""
+  printf "  \e[37;1mDetectors available \e[m\n\n"
+  for i in `seq 1 ${#Detector[@]}`
+  do
+    j=`expr $i - 1`
+    
+    if [ ${Status[j]} == "on" ]
+    then
+      printf "    \e[33;1m${Detector[j]} : ON\e[m\n"
+    else
+      printf "    \e[37;2m${Detector[j]} : OFF\e[m\n"
+    fi
+  done
+  echo ""
+else
+  echo "No Detector exists"
+fi

@@ -1,102 +1,61 @@
-# Copyright: 
-# 2010, 2012, 2013, 2015 daid KAHL
+################################################################
 #
-# This file modified from the crabat project
+# Makefile
 #
-# crabat is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+# - search recursively the source file
 #
-# crabat is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# Time-stamp: "2013-12-18 15:53:50 Gmaj7sus4"
 #
-# You should have received a copy of the GNU General Public License
-# along with crabat.  If not, see <http://www.gnu.org/licenses/>.
-#  
+################################################################
+#---------------------------------------------------------------
+# User setting
+#---------------------------------------------------------------
 
-# Makefile for crabat
-# Dependencies:
-# ROOT (http://root.cern.ch)
-# KaliVeda (http://indra.in2p3.fr/KaliVedaDoc/)  NOT USED AT PRESENT
-# Doxygen (http://www.stack.nl/~dimitri/doxygen/)
-CXX=g++
-#COPT=-O0 -g # valgrind
-COPT=-O2 -march=native -pipe #debug
-#COPT=-DDEBUG -I"" -O0 -g3 -Wall -c -fmessage-length=0 # another debug
-#CDEBUG=-ansi -pendantic -g # some problems? 
-#COPT=-O2 -march=native -pipe -fomit-frame-pointer # run fastest
-ROOTFLAGS=$(shell root-config --cflags)
-CXXFLAGS=$(COPT) -Wall -fPIC $(ROOTFLAGS)
-#CXXFLAGS=$(COPT) -Wall -Werror -fPIC $(ROOTFLAGS)
-FC=gfortran
-FFLAGS=-lstdc++
-#FSRC=$(wildcard ./enewzsub/*.f)
-#LD=gfortran $(FFLAGS)
-LD=g++ $(FFLAGS)
-ROOTLIBS=$(shell root-config --libs)
-#KVLIBS=-L$(KVROOT)/lib -lKVMultiDet
-#KVLIBS=-L$(KVROOT)/lib -lKVMultiDet -lrange
-# make sure to run sudo ldconfig
-#RANGELIBS=-L/usr/local/lib -lrange
+TARGET   = crabat
+INCLUDES = -I./include
+NOMAKEDIR= .git% data% doc% src/bin% bin%
+OBJDIR = objs
 
-#-lXpm & -lX11 doesn't work in MacOS
-LIBS=-lm $(ROOTLIBS) $(KVLIBS) $(RANGELIBS)
-#LIBS=-lXpm -lX11 -lm $(ROOTLIBS) $(KVLIBS) $(RANGELIBS)
-#LIBS=-lXpm -lX11 -lm $(ROOTLIBS) $(KVLIBS) $(RANGELIBS) -lstdc++
-INCLUDE=$(addprefix -I,$(KVROOT)/include)
-COBJS=dictCal.o dictAnaly.o run.o
-#FOBJS=$(FSRC:%.f=%.o)
-#ARCHIVE=libenewzlib.a
-#DOCCMD=doxygen
-#DOCCFG=doc/Doxyfile
-#DOCS=doc/html/index.html
-TGT=run
+#---------------------------------------------------------------
+# Don't change the following
+#---------------------------------------------------------------
 
-all: $(TGT)
-#all: tb $(ARCHIVE) $(TGT) $(DOCS) 
+GCC = g++
+CFLAGS  = -g -MMD -MP -Wall -O2 $(shell root-config --cflags)
+LDFLAGS = $(shell root-config --libs) $(shell gsl-config --libs) -lSpectrum
 
-#tb: force_look 
-#	@printf "make tbrowser\n"
-#	@cd tbrowser; ${MAKE} ${MFLAGS}
+CPPS = $(shell find * -name *.cpp)
+SRCS = $(filter-out $(NOMAKEDIR), $(CPPS))
+DIRS = $(dir $(SRCS))
+BINDIRS = $(addprefix $(OBJDIR)/, $(DIRS))
 
-$(ARCHIVE):  
-	@ar r $(ARCHIVE)
-	@ranlib $(ARCHIVE)
+OBJS = $(addprefix $(OBJDIR)/, $(patsubst %.cpp, %.o, $(SRCS)))
+DEPS = $(OBJS:.o=.d)
+TILS = $(patsubst %.cpp, %.cpp~, $(SRCS))
 
-$(TGT): $(FOBJS) $(COBJS)
-	@printf "LD $(TGT)\n\tcopy of any errors recorded in linker.log\n"
-	$(LD) -O  $(COBJS) $(FOBJS) $(ARCHIVE) -o $@ $(LIBS) 2>&1 | tee linker.log 
-	@printf "\nCompile successful!\nbinary: $(shell pwd)/$(TGT)\n\n"
+ifeq "$(strip $(OBJDIR))" ""
+  OBJDIR = .
+endif
 
-$(DOCS): $(TGT) 
-	@printf "Generating documentation...\n\tall output and errors directed to doxygen.log\n"
-	@$(DOCCMD) $(DOCCFG)  &> doxygen.log 
+ifeq "$(strip $(DIRS))" ""
+  OBJDIR = .
+endif
 
-force_look:
-	@true
+default:
+	@[ -d  $(OBJDIR)   ] || mkdir -p $(OBJDIR)
+	@[ -d "$(BINDIRS)" ] || mkdir -p $(BINDIRS)
+	@make all --no-print-directory
+#	./$(TARGET)
 
-clean:	
-	@echo "cleaning..."
-	@rm -f $(TGT) $(ARCHIVE) dict*
-	#@rm -f $(TGT) $(ARCHIVE) dict*
-	#@rm -rf doc/html doc/latex
-	@find . -maxdepth 2 -name "*.o" | xargs -I{} rm {}
+all : $(OBJS) $(TARGET)
 
-%.o: %.cxx Analyzer.cxx Analyzer_config.cxx run.h
-	@echo "CXX $< $@"
-	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ 
+$(TARGET): $(OBJS) $(LIBS)
+	$(GCC) -o $@ $^ $(LDFLAGS)
 
-%.o: %.f
-	@echo "FC $@"
-	@$(FC) -c $< -o $@ 
+$(OBJDIR)/%.o: %.cpp
+	$(GCC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
-dictCal.cxx: Calibration.h linkdefCal.h Calibration.cxx
-	@echo "ROOT $@"
-	@rootcint -f $@ -c $(CXXFLAGS) $< linkdefCal.h
+clean:
+	@rm -rf $(TARGET) $(TILS) $(OBJDIR)
 
-dictAnaly.cxx: Analyzer.h linkdefAnaly.h Analyzer.cxx Analyzer_config.cxx
-	@echo "ROOT $@"
-	@rootcint -f $@ -c $(CXXFLAGS) $< linkdefAnaly.h
+-include $(DEPS)

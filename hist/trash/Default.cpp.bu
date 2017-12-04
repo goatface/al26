@@ -1,0 +1,27 @@
+#include <Histograms.h>
+
+void Histograms::Default(){
+
+  /* Set Up */
+
+  if(Default_bool==false){
+//    hist0 = new TH3F("Vector3D","Vector3D", 100, -1.2, 1.2, 100, -1.2, 1.2, 100, -1.2, 1.2);
+//    hist0->GetXaxis()->SetTitle("X");
+//    hist0->GetYaxis()->SetTitle("Y");
+//    hist0->GetZaxis()->SetTitle("Z");
+    Default_bool=false;
+//    Default_bool=true;
+  }else{
+  /* LOOP if Default_book = true */
+
+    if(det.fCr[1]){
+      if(det.Angle_calculate()){
+        if(det.fPsdIsHit[1])
+          hist0->Fill(det.Vrec[0], det.Vrec[1], det.Vrec[2]);
+      }
+
+    }
+
+  }
+
+}

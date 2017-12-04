@@ -1,0 +1,21 @@
+Nov.20 Basical idea has been established.
+  HFiles & Calibration are basically work.
+  Histograms & Detectors should be modified.
+  Histograms ... Make of Histogram.h was so slow.
+                 Histograms should be defined by object? like hist->Define(HISOGram) or in some way?
+                 Then it can avoid to re-make and can be library
+  Detectors ...  Is it good way to define physical value in this class?
+                 Like Psd.energy or Psd.timing
+                 then it can easily be treated.
+
+Nov.30
+  Modified a lot.
+  It seems much better than before.
+  Next thing is to let it make tree and graphs
+  graphs perhaps is better to be created when loop was done, because it can not afford to manage such a lot of
+  data due to array.(it seems that data plots are just an array)
+  Is there way to avoid it?
+  if so, I should create the macro or some another prgram to manage graphs.
+
+
+

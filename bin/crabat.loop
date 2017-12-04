@@ -1,0 +1,155 @@
+#!/bin/sh
+
+_Question_ () {
+
+  read ANSWER
+  if [ ! $ANSWER = "y" ]
+  then 
+
+    if [ $ANSWER = "n" ]
+    then
+      exit 1
+
+    else
+      echo "Choose yes or no"
+      _Question_
+
+    fi
+  fi
+
+}
+
+_Version_ () {
+
+    echo "crabat version 0.0.1"
+
+}
+
+_Usage_ () {
+
+  printf "\e[34:2m$(basename ${0}) is a tool for loop crabat. It also can hadd your result\e[m\n\n"
+  printf "   \e[33:1mUsage:\e[m\n"
+  printf "    \e[37:2m    crabat.loop [run numbers] [option]\n\e[m"
+  printf "   \e[33:1mOptions:\e[m\n"
+  printf "    \e[37:2m    --version, -v   print $(basename ${0}) version\n"
+  printf "        --help, -h      print this\n"
+  printf "        --into, -i      use $(basename ${0}) and hadd into output file, like \$crabat.loop 1-100 --into out.root\n\n"
+
+}
+
+_IntegerCheck_ () {
+
+  expr "$1 + 1" > /dev/null 2>&1
+  if [ ! $? -lt 2 ] ; then
+    echo "$1 is not integer"
+    return 1;
+  fi
+ 
+}
+
+
+_ArgumentManager_ () {
+  
+  INPUT=$1
+  if [ -z `echo $INPUT | sed "/-/d"` ]
+  then
+    array=( `echo $INPUT | tr -s '-' ' ' ` )
+    if [ ${#array[@]} -eq 2 ]
+    then
+      start=${array[0]}
+      end=${array[1]}
+      _IntegerCheck_ $start
+      _IntegerCheck_ $end
+      if [ $start -lt $end ] ; then
+        for i in `seq $start $end`
+        do
+          echo $i # return the valid value 
+        done
+      fi
+
+    else 
+      echo "invalid expression"
+      exit 1
+    fi
+
+  elif [ -z `echo $INPUT | sed "/,/d"` ]
+  then
+    array=( `echo $INPUT | tr -s ',' ' ' ` )
+    if [ ${#array[@]} -eq 2 ]
+    then
+      for i in ${array[@]}
+      do
+        _IntegerCheck_ $i
+        echo $i # return the valid value 
+        done
+    else 
+      echo "invalid expression"
+      exit 1
+    fi
+
+  else
+    "invalid argument(s)"
+    _Usage_
+    exit 1
+  fi
+
+}
+
+_Rootfiles_ () {
+
+  for file in `_ArgumentManager_ $1`
+  do
+    echo "$file.root"
+  done
+
+}
+
+_Options_ () {
+
+  if [ $# -eq 1 ]; then
+     case ${1} in
+        help|--help|-h)
+            _Usage_
+        ;;
+        version|--version|-v)
+            _Version_
+        ;;
+
+        *)
+        _Loop_ $1
+       ;;
+      esac
+
+  elif [ $# -eq 3 ]; then
+
+    case ${2} in
+      --into|-i)
+        _Loop_ $1
+        hadd $3 `_Rootfiles_ $1`
+      ;;
+      *)
+        echo "invalid arguments"
+        echo "add --help or -h and take a look on usage"
+      ;;
+    esac
+      
+  else
+    echo "Invalid argument"
+    echo "add --help or -h and take a look on usage"
+    exit 1
+
+  fi
+    
+}
+
+
+_Loop_ () {
+
+    for RUN_NUMBER in ` _ArgumentManager_ $1 `
+    do
+      echo $RUN_NUMBER
+    done
+
+}
+
+_Options_ $@

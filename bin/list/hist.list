@@ -1,0 +1,18 @@
+MaxID 17
+0 TH1D {o}Tel2_Energy{o} ON created on 2017/11/26 05:35:04 | Tel2_Energy : Tel2_Energy : 1000 : 0 : 30| Energy [MeV] : counts
+1 TH2D {o}Tel1_dEvsE{o} ON created on 2017/11/26 22:55:44 | Tel1_dEvsE : Tel1_dEvsE : 1000 : 0 : 8 : 1000 : 0 : 30 | Energy depodit in thick layer [MeV] : Residual Energy [MeV]
+2 TH1D {o}NaI1{o} OFF created on 2017/11/27 19:54:37 | NaI1 : NaI1 : 200 : 0 : 2200| Energy [keV] : counts
+3 TH2D {o}BeamSpread{o} OFF created on 2017/11/27 20:31:09 | BeamSpread : BeamSpread : 1000 : -180 : 180 : 1000 : -180 : 180| Horizontal Angle [degree] : Vertical Angle [degree]
+4 TH1D {o}Angle_recoil{o} OFF created on 2017/11/27 20:40:24 | Angle_recoil : Angle_recoil : 1000 : 0 : 180 | Angle [degree] : counts
+5 TH1D {o}NaI2{o} OFF created on 2017/11/28 21:20:33 | NaI2 : NaI2 : 500 : 0 : 2200 | Energy [keV] : counts
+6 TH1D {o}NaI3{o} OFF created on 2017/11/28 21:21:08 | NaI3 : NaI3 : 500 : 0 : 2200 | Energy [keV] : counts
+7 TH1D {o}NaI4{o} OFF created on 2017/11/28 21:21:41 | NaI4 : NaI4 : 500 : 0 : 2200 | Energy [keV] : counts
+8 TH1D {o}NaI5{o} OFF created on 2017/11/28 21:22:17 | NaI5 : NaI5 : 500 : 0 : 2200 | Energy [keV] : counts
+9 TH1D {o}NaI6{o} OFF created on 2017/11/28 21:22:43 | NaI6 : NaI6 : 500 : 0 : 2200 | Energy [keV] : counts
+10 TH1D {o}NaI7{o} OFF created on 2017/11/28 21:23:15 | NaI7 : NaI7 : 500 : 0 : 2200 | Energy [keV] : counts
+11 TH1D {o}NaI8{o} OFF created on 2017/11/28 21:23:44 | NaI8 : NaI8 : 500 : 0 : 2200 | Energy [keV] : counts
+12 TH1D {o}NaI9{o} OFF created on 2017/11/28 21:24:05 | NaI9 : NaI9 : 500 : 0 : 2200 | Energy [keV] : counts
+13 TH1D {o}NaI10{o} OFF created on 2017/11/28 21:24:27 | NaI10 : NaI10 : 500 : 0 : 2200 | Energy [keV] : counts
+14 TH1D {o}Tel1_Energy{o} ON created on 2017/11/30 13:27:55 | Tel1_Energy : Tel1_Energy : 1000 : 0 : 30 | Energy [keV] : counts
+15 TH1D {o}RF1{o} OFF created on 2017/11/30 13:53:09 | RF1 : RF1 : 1000 : 0 : 120 | RF1 timing [ns] : counts
+16 TH1D {o}RF2{o} OFF created on 2017/11/30 15:02:57 | RF2 : RF2 : 1000 : 0j : 1000 | timing [ns] : counts

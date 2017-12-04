@@ -1,0 +1,46 @@
+#!/bin/sh
+
+_Check_ () {
+
+  if [ ! -f ./bin/list/hist.list ]  && [ ! -f ./bin/list/histgroup.list ] && [ ! -f ./bin/list/set.list ] ; then
+    echo "move to crabat directory."
+    exit 1
+  fi
+
+}
+
+_Question_ () {
+
+  /bin/echo -n "do you wanna delete a group ? (y/n) "
+  read ANS
+  if [ $ANS = "y" ];then
+    _DeleteHistGroup_ $@
+  elif [ $ANS = "n" ];then
+    echo "see you"
+  else
+    echo "choose yes or no \a"
+    _Question_
+  fi
+
+}
+
+_DeleteHistGroup_ () {
+ 
+  LIST_PATH="./bin/list/histgroup.list"
+  COL_BEGIN=
+  i=0
+
+  cat $LIST_PATH | while read line
+  do
+    if [ -z `sed "/^-/g" $line` ]
+    then
+      echo $i
+    fi
+    i=$((i + 1))
+  done
+  COL_END=
+
+}
+
+_Check_
+_Question_ $@

@@ -1,0 +1,21 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.19          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::Psd1_Energy(Int_t HistID){
+
+  det.PsdFlag();
+  if(det.fPsdIsHit[0])
+    Hist1D[HistID]->Fill(Psd_calib->PSDEdep(det.fPsdDep[0],2,det.stripX[0]));// For 0 deg Psd
+    //Hist1D[HistID]->Fill(Psd_calib->PSDEdep(det.fPsdDep[1],1,det.stripX[1])); For 2nd Psd
+    //Hist1D[HistID]->Fill(det.fPsdE[0][0]);
+
+}

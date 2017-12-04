@@ -1,0 +1,92 @@
+#### SSD Calibration ####
+#
+##### SSD2 gain, offset #### Sigma=0.016296 
+#0.00553 , -29.39044
+##
+##### SSD3 gain, offset #### Sigma=0.015174 
+#0.00498 , 11.35321
+##
+##### SSD4 gain, offset #### Sigma=0.014166 
+#0.00516 , -22.96965
+##
+##### SSD5 gain, offset #### Sigma=0.013525 
+#0.00538 , -75.65062
+##
+##### SSD6 gain, offset #### Sigma=0.012047 
+#0.00530 , -42.05783
+##
+##### SSD7 gain, offset #### Sigma=0.011913 
+#0.00531 , -11.31321
+##
+##### SSD8 gain, offset #### Sigma=0.016419 
+#0.00176 , 11.75602
+##
+##### SSD9 gain, offset #### Sigma=0.014241 
+#0.00168 , 15.73981
+##
+##### SSD10 gain, offset #### Sigma=0.012941 
+#0.00172 , -73.08170
+##
+##### SSD11 gain, offset #### Sigma=0.014902 
+#0.00167 , 16.85540
+##
+##### SSD12 gain, offset #### Sigma=0.015131 
+#0.00175 , 85.73401
+##
+##### SSD13 gain, offset #### Sigma=0.012955 
+#0.00168 , -32.32641
+##
+##### SSD14 gain, offset #### Sigma=0.013956 
+#0.00159 , 40.58972
+##
+#
+
+#### SSD Calibration after machine time ####
+
+#### SSD0 gain, offset #### Sigma=
+0.047728586 , -77.00952421
+#
+#### SSD1 gain, offset #### Sigma=0.013450 
+0.00496 , -44.48247
+#
+#### SSD2 gain, offset #### Sigma=0.012199 
+0.00538 , -29.92044
+#
+#### SSD3 gain, offset #### Sigma=0.015174 
+0.00498 , 11.35321
+#
+#### SSD4 gain, offset #### Sigma=0.014139 
+0.00527 , -63.59041
+#
+#### SSD5 gain, offset #### Sigma=0.021490 
+0.00553 , -44.78843
+#
+#### SSD6 gain, offset #### Sigma=0.014148 
+0.00535 , -14.92360
+#
+#### SSD7 gain, offset #### Sigma=0.015630 
+0.00541 , 5.84449
+#
+#### SSD8 gain, offset #### Sigma=0.013501 
+0.00178 , -14.67573
+#
+#### SSD9 gain, offset #### Sigma=0.013612 
+0.00157 , 22.06729
+#
+#
+## SSD3 & SSD 12 used value before machine time
+#### SSD10 gain, offset #### Sigma=0.205562 
+0.001730 , -86.96511;
+#### SSD11 gain, offset #### Sigma=0.012941 
+0.00169 , -89.00240
+#
+#### SSD12 gain, offset #### Sigma=0.015131 
+0.00175 , 85.73401
+#
+#### SSD13 gain, offset #### Sigma=0.015138 
+0.00169 , 54.09101
+#
+#### SSD14 gain, offset #### Sigma=0.015257 
+0.00163 , 49.16476
+#
+

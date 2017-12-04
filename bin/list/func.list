@@ -1,0 +1,9 @@
+MaxID 7
+
+0 Fermi_function . . default 
+1 Beta_function . . default 
+2 Beta_Stopping_Power . . default 
+3 Energy_Loss_Beta . . default 
+4 Stopping_power_Si . . default 
+5 Stopping_power_CH2 . . default 
+6 Energy_Loss_CH2 . . default 

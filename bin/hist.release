@@ -1,0 +1,46 @@
+#!/bin/sh
+
+LIST_PATH="./bin/list/hist.list"
+SET_PATH="./bin/list/set.list"
+
+
+_Check_ () {
+  if [ ! -d ./bin/list ] ; then
+    echo "move to crabat directory."
+    exit 1
+  fi
+}
+
+
+_Releasehist_ () {
+
+  histname=$1 
+  histname_raw="{o}$1{o}"
+  histid_raw=($(cat $LIST_PATH | grep " $histname_raw" | wc -l | awk '{print $1}'))
+
+  if [ `cat $LIST_PATH | awk -v hist="$histname_raw" 'match($3,hist) {print $3}'` == "OFF" ]
+  then
+    echo "$histname is already released"
+
+  else
+    N=`cat $SET_PATH | grep " $histname" | wc -l | awk '{print $1}'`
+    expr "${N} + 1" > /dev/null 2>&1
+
+    if [ ! $? -lt 2 ] ; then
+      echo "$1 is not seen in ./bin/list/set.list"
+      return 1;
+    fi
+
+    sed -i "" "/$histname : $Histid_raw/d" $SET_PATH
+    sed -i "" "/$histname_raw/s/ON/OFF/" $LIST_PATH
+    echo "$histname (id=$Histid_raw) has been released."
+
+  fi
+
+}
+
+for hist in "$@"
+do
+_Check_ $hist
+_Releasehist_ $hist
+done

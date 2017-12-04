@@ -1,0 +1,20 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.19          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::Beam_Focus(Int_t HistID){
+
+  if(det.fCr[0]){
+    det.PPACcalib();
+    Hist2D[HistID]->Fill(180/M_PI*asin(det.Vinc[0]),180/M_PI*asin(det.Vinc[1]));
+  }
+
+}

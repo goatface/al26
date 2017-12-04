@@ -1,0 +1,18 @@
+//################################
+//#                              #
+//#    Definition of Function    #
+//#           Created            #
+//#              on              #
+//#          2017.11.12          #
+//#                              #
+//################################
+
+
+#include "Functions.h"
+
+Int_t hoge(Double_t n){
+
+
+
+
+}

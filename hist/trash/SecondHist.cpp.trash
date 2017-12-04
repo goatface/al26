@@ -1,0 +1,19 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.16          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::SecondHist(Int_t HistID){
+
+
+
+
+  Hist1D[HistID]->Fill(0);
+}

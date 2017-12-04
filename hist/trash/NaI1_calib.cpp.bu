@@ -1,0 +1,18 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.18          #
+//#                              #
+//################################
+
+
+#include <Calibration.h>
+#include "Histograms.h"
+
+void Histograms::NaI1_calib(Int_t HistID){
+
+  if(det.fCr[0])
+    Hist1D[HistID]->Fill(NaI_calib->NaIEdep(det.fNaiE[0],0));
+}

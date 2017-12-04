@@ -1,0 +1,3 @@
+    case _HIST_ID_ :    // {o}_HIST_NAME_{o}
+      _HIST_NAME_(hist);   // {o}_HIST_NAME_{o}
+      break;          // {o}_HIST_NAME_{o}

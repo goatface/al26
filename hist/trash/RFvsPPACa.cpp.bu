@@ -1,0 +1,18 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.18          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::RFvsPPACa(Int_t HistID){
+
+  det.PPACcalib();
+  if(det.fCr[1])
+    Hist2D[HistID]->Fill(det.fPpacX[0],det.fRf[0]);
+}

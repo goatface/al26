@@ -1,0 +1,112 @@
+#!/bin/sh
+
+_Check_ () {
+
+  if [ ! -d ./bin/list ] ; then
+    echo "move to crabat directory."
+    exit 1
+  fi
+
+}
+
+_List_ () {
+
+  list_path="./bin/list/hist.list"
+  histname=($(grep created $list_path | awk '{print $3}' | sed "s/{o}//g" | sort))
+
+  if [ ${#histname[@]} -ge 1 ]
+  then
+    echo ""
+    printf "  \e[37;1mDefined histograms \e[m\n"
+    echo ""
+
+    for hist in  ${histname[@]}
+    do
+
+      histID=`grep "{o}$hist{o}" $list_path | awk '{print $1}'`
+      histDim=`grep "{o}$hist{o}" $list_path | awk '{print $2}'`
+      Status=`grep "{o}$hist{o}" $list_path | awk '{print $4}'`
+      histDate=`grep "{o}$hist{o}" $list_path | awk '{print $7}'`
+      
+      if [ ${Status} = "ON" ]
+      then
+        printf "\e[33;1m    id = ${histID} : "
+        
+        if [ ${histID} -le 9 ]
+        then
+          printf " "
+        fi
+
+        if [ ${histID} -le 99 ]
+        then
+          printf " "
+        fi
+
+        printf "${histDim}   ${hist}     created on ${histDate}    status : ON\e[m\n"
+
+      else
+        printf "\e[37;2m    id = ${histID} : "
+
+        if [ ${histID} -le 9 ]
+        then
+          printf " "
+        fi
+
+        if [ ${histID} -le 99 ]
+        then
+          printf " "
+        fi
+
+       printf "${histDim}   ${hist}     created on ${histDate}    status : OFF\e[m\\n"
+
+      fi
+    done
+
+    echo ""
+
+  else
+    echo "Add histograms first"
+
+  fi
+
+}
+
+_List_Short_ () {
+
+  LIST_PATH="./bin/list/hist.list"
+  HISTDIM=($(grep created $LIST_PATH | awk '{print $2}'))
+  HISTNAME=($(grep created $LIST_PATH | awk '{print $3}' | sed "s/{o}//g"))
+  STATUS=($(grep created $LIST_PATH | awk '{print $4}'))
+
+  if [ ${#HISTNAME[@]} -ge 1 ]
+  then
+    echo ""
+    printf "  \e[37;1mDefined histograms \e[m\n"
+    echo ""
+    for i in `seq 1 ${#HISTNAME[@]}`
+    do
+      j=`expr $i - 1`
+      
+     if [ ${STATUS[j]} == "ON" ]
+     then
+       printf "\e[33;1m${HISTDIM[j]} ${HISTNAME[j]}\e[m\n"
+     else
+       printf "\e[37;2m${HISTDIM[j]} ${HISTNAME[j]}\e[m\n"
+     fi
+    done
+    echo ""
+  else
+    echo "Add histograms first"
+  fi
+
+}
+
+_Check_
+
+if [ $# -eq 1 ] && [ $1 = "-l" ]
+then
+  _List_Short_
+else
+  _List_
+fi
+

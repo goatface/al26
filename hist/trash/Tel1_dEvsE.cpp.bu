@@ -1,0 +1,31 @@
+//################################
+//#                              #
+//#   Definition of Histogram    #
+//#           Created            #
+//#              on              #
+//#          2017.11.20          #
+//#                              #
+//################################
+
+
+#include "Histograms.h"
+
+void Histograms::Tel1_dEvsE(Int_t HistID){
+
+  if(det.fCr[0]){
+    det.PsdFlag();
+    det.SsdFlag();
+    if(det.fPsdIsHit[0]){
+      Float_t dE = Psd_calib->PSDEdep(det.fPsdDep[0],2,det.stripX[0]);
+      if(det.fSsdIsHit[5]){
+        Float_t E = Ssd_calib->SSDEdep(det.fSsdE[5],5);
+        if(det.fSsdIsHit[6])
+          E += Ssd_calib->SSDEdep(det.fSsdE[6],6);
+        if(det.fSsdIsHit[1])
+          E += Ssd_calib->SSDEdep(det.fSsdE[1],1);
+        Hist2D[HistID]->Fill(dE,E+dE);
+      }
+      
+    }
+  }
+}

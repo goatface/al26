@@ -1,0 +1,76 @@
+#!/bin/sh
+
+
+_IntegerCheck_ () {
+
+  expr "$1 + 1" > /dev/null 2>&1
+  if [ ! $? -lt 2 ] ; then
+    echo "$1 is not integer"
+    return 1;
+  fi
+ 
+}
+
+_ArgumentManager_ () {
+  
+  INPUT=$1
+  if [ -z `echo $INPUT | sed "/-/d"` ]
+  then
+    array=( `echo $INPUT | tr -s '-' ' ' ` )
+    if [ ${#array[@]} -eq 2 ]
+    then
+      start=${array[0]}
+      end=${array[1]}
+      _IntegerCheck_ $start
+      _IntegerCheck_ $end
+      if [ $start -lt $end ] ; then
+        for i in `seq $start $end`
+        do
+          echo $i # return the valid value 
+        done
+      fi
+
+    else 
+      echo "invalid expression"
+      exit 1
+    fi
+
+  elif [ -z `echo $INPUT | sed "/,/d"` ]
+  then
+    array=( `echo $INPUT | tr -s ',' ' ' ` )
+    if [ ${#array[@]} -eq 2 ]
+    then
+      for i in ${array[@]}
+      do
+        _IntegerCheck_ $i
+        echo $i # return the valid value 
+        done
+    else 
+      echo "invalid expression"
+      exit 1
+    fi
+
+  else
+    _IntegerCheck_ $@
+    echo $@
+   fi
+
+}
+
+_Header_ () {
+   
+  for i in $@
+  do
+  _IntegerCheck_ $i
+  start=`expr $i \* 7 - 6`
+  stop=`expr $start + 4` 
+  echo ""
+  cat header.txt | sed -n "${start},${stop}p"
+  echo ""
+
+  done
+
+}
+
+
+_Header_ `_ArgumentManager_ $@`

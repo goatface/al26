@@ -1,0 +1,44 @@
+#!/bin/sh
+
+_Check_ () {
+
+  if [ ! -f ./bin/list/SetDetector.list ]; then
+    echo "Move onto crabat directory"
+    exit 1
+  fi
+
+}
+
+_Usage_ () {
+
+  cat << EOF
+Usage : det.on/off [Detector name]
+  on   Set detector available
+  off  Set detector unavailable
+  -h   Show this
+EOF
+
+}
+
+_Unsetdet_ () {
+  if [ $1 == `cat ./bin/list/SetDetector.list | awk '{print $1}' | grep $1` ] && [ `cat ./bin/list/SetDetector.list | grep $1 | awk '{print $3}'` == "on" ]
+  then
+    sed -i "" "/$1/s/on/off/" ./bin/list/SetDetector.list
+  else
+    echo "Detector $1 is already off or not exist"
+  fi
+}
+
+_Check_
+
+if [ $# -eq 1 ] && [ $1 == "-h" ]
+then
+  _Usage_
+elif [ $# -eq 1 ]
+then
+  _Unsetdet_ $1
+else
+    echo "Invalid argument (see help -h)"
+    exit 1
+fi
+
